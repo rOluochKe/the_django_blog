@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Posts</h1>
+
+<div class="row">
+{% for post in object_list %}
+	<div class="col-md-4 mb-3">
+		<div class="card">
+			<img src="{{ post.header_image.url }}" class="card-img-top" alt="{{ post.title }}">
+			<div class="card-body">
+				<h5 class="card-title">{{ post.title }}</h5>
+				<a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> | {{ post.author.first_name }} {{ post.author.last_name }} | {{ post.post_date }}
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<a href="{% url 'article-detail' post.pk %}" class="btn btn-primary">Go somewhere</a>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+</div>
+
+<!-- <ul>
+{% for post in object_list %}
+	<li class="mt-3"><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> |
+
+		- <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a>
+		- {{ post.author.first_name }} {{ post.author.last_name }} -  
+		{{ post.post_date }} <small>
+
+		{% if user.is_authenticated %}	
+			{% if user.id == post.author.id %}
+				- <a href="{% url 'update_post' post.pk %}">(Edit)</a> 
+
+				<a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+			{% endif %}
+		{% endif %}
+
+	</small> <br/>
+	{{ post.snippet }}</li>
+{% endfor %}
+</ul> -->
+
+
+
+{% endblock %}
